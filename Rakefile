@@ -198,7 +198,7 @@ namespace "test" do
 	task :prepare_test_runner => [:check_bundler] do
 		if(!File.exist? "test_runner/gems")
 			cd "test_runner" do
-				sh "bundle install gems --disable-shared-gems"
+				sh "bundle install --path gems"
 			end
 		end
 	end
