@@ -54,7 +54,7 @@ window["test"]["dunesAndDemise"] = function(){
 		ok(path.found, "found route");
 		var expected = [[0,0],[0,1],[0,2],[1,2],[2,2],[2,3],[3,3],[4,3],[5,3],[5,4]];
 		for(var i = 0; i < expected.length; i++){
-			same([path.nodes[i].getX(), path.nodes[i].getY()], expected[i], "path node " + i + " is as expected");
+			deepEqual([path.nodes[i].getX(), path.nodes[i].getY()], expected[i], "path node " + i + " is as expected");
 		}
 		window["testPaths"].push(["A* path", path]);
 	});
@@ -64,7 +64,7 @@ window["test"]["dunesAndDemise"] = function(){
 		ok(path.found, "found route");
 		var expected = [[0,0],[0,1],[0,2],[1,2],[2,2],[2,3],[3,3],[4,3],[5,3],[5,4]];
 		for(var i = 0; i < expected.length; i++){
-			same([path.nodes[i].getX(), path.nodes[i].getY()], expected[i], "path node " + i + " is as expected");
+			deepEqual([path.nodes[i].getX(), path.nodes[i].getY()], expected[i], "path node " + i + " is as expected");
 		}
 		window["testPaths"].push(["Dijkstra's path", path]);
 	});
@@ -74,7 +74,7 @@ window["test"]["dunesAndDemise"] = function(){
 		ok(path.found, "found route");
 		var expected = [[0,0],[0,1],[0,2],[1,2],[2,2],[2,3],[3,3],[4,3],[5,3],[5,4]];
 		for(var i = 0; i < expected.length; i++){
-			same([path.nodes[i].getX(), path.nodes[i].getY()], expected[i], "path node " + i + " is as expected");
+			deepEqual([path.nodes[i].getX(), path.nodes[i].getY()], expected[i], "path node " + i + " is as expected");
 		}
 		window["testPaths"].push(["FRA* path", path]);
 	});

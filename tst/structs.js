@@ -29,24 +29,24 @@ window["test"]["structures"] = function(){
 	test("enqueue", function(){
 		this.q.enqueue(1, "foo");
 		this.q.enqueue(2, "bar");
-		equals(this.q.length, 2, "length correct with safe keys");
+		equal(this.q.length, 2, "length correct with safe keys");
 		this.q.enqueue(2, "baz");
-		equals(this.q.length, 3, "length correct with duplicate keys");
+		equal(this.q.length, 3, "length correct with duplicate keys");
 		this.q.enqueue(2, "a");
 		this.q.enqueue(1, "b");
 		this.q.enqueue(3, "c");
-		equals(this.q.length, 6, "length correct with a few more random keys");
+		equal(this.q.length, 6, "length correct with a few more random keys");
 	});
 	test("dequeue", function(){
 		this.q.enqueue(2, "bar");
 		this.q.enqueue(1, "foo");
-		equals(this.q.length, 2, "length correct before dequeue");
-		equals(this.q.dequeue(), "foo", "basic dequeue");
-		equals(this.q.length, 1, "length correct after dequeue");
+		equal(this.q.length, 2, "length correct before dequeue");
+		equal(this.q.dequeue(), "foo", "basic dequeue");
+		equal(this.q.length, 1, "length correct after dequeue");
 		this.q.enqueue(2, "baz");
-		equals(this.q.dequeue(), "bar", "dequeueing element with duplicate key");
-		equals(this.q.dequeue(), "baz", "dequeueing last element");
-		equals(this.q.length, 0, "length correct after dequeueing everything");
+		equal(this.q.dequeue(), "bar", "dequeueing element with duplicate key");
+		equal(this.q.dequeue(), "baz", "dequeueing last element");
+		equal(this.q.length, 0, "length correct after dequeueing everything");
 	});
 	test("contains", function(){
 		window.q = this.populatedQ;
@@ -81,7 +81,7 @@ window["test"]["structures"] = function(){
 		
 		var expected = ["b", "bb", "a", "c", "d", "dd"];
 		for(var i = 0; i < expected.length; i++){
-			equals(this.keyQ.dequeue(), expected[i], "Element " + i + " is as expected");
+			equal(this.keyQ.dequeue(), expected[i], "Element " + i + " is as expected");
 		}
 	});
 	
@@ -100,9 +100,9 @@ window["test"]["structures"] = function(){
 		var arr = new crow.structs.NDArray(1);
 		arr.add("cat", 2);
 		arr.add("dog", 30);
-		equals(arr.get(2), "cat");
-		equals(arr.get(30), "dog");
-		equals(arr.get(3), undefined);
+		equal(arr.get(2), "cat");
+		equal(arr.get(30), "dog");
+		equal(arr.get(3), undefined);
 		raises(function(){
 			arr.get(4, 5);
 		}, "Can't get too deep");
@@ -118,8 +118,8 @@ window["test"]["structures"] = function(){
 		arr.each(function(val, x){
 			results.push([val, x]);
 		});
-		same(results[0], ["cat", 2]);
-		same(results[1], ["dog", 30]);
+		deepEqual(results[0], ["cat", 2]);
+		deepEqual(results[1], ["dog", 30]);
 	});
 	
 	test("2d:add", function(){
@@ -138,9 +138,9 @@ window["test"]["structures"] = function(){
 		var arr = new crow.structs.NDArray(2);
 		arr.add("cat", 2, 3);
 		arr.add("dog", 30, 31);
-		equals(arr.get(2, 3), "cat");
-		equals(arr.get(30, 31), "dog");
-		equals(arr.get(3, 5), undefined);	
+		equal(arr.get(2, 3), "cat");
+		equal(arr.get(30, 31), "dog");
+		equal(arr.get(3, 5), undefined);	
 		raises(function(){
 			arr.get(1, 2, 3);
 		}, "Can't get too deep");
@@ -156,8 +156,8 @@ window["test"]["structures"] = function(){
 		arr.each(function(val, x, y){
 			results.push([val, x, y]);
 		});
-		same(results[0], ["cat", 2, 3]);
-		same(results[1], ["dog", 30, 31]);
+		deepEqual(results[0], ["cat", 2, 3]);
+		deepEqual(results[1], ["dog", 30, 31]);
 
 	});
 };

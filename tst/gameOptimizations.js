@@ -88,7 +88,7 @@ window["test"]["gameOptimizations"] = function(){
 		
 		var expected = [[0,0],[1,0],[1,1],[1,2],[2,2]];
 		for(var i = 0; i < expected.length; i++){
-			same([path.nodes[i].getX(), path.nodes[i].getY()], expected[i], "initial: path node " + i + " is as expected");
+			deepEqual([path.nodes[i].getX(), path.nodes[i].getY()], expected[i], "initial: path node " + i + " is as expected");
 		}
 		
 		// Now we remove a point and signal to our graph that any paths containing that point
@@ -101,7 +101,7 @@ window["test"]["gameOptimizations"] = function(){
 		
 		ok(!path.found, "deleted only available path; can't find new path");
 		
-		equals(path.nodes.length, 1, "busted path is shorter");
+		equal(path.nodes.length, 1, "busted path is shorter");
 		
 		// Now let's add another node making it possible to find the goal
 		graph.addNode(new MyNode([2, 1]));
@@ -111,7 +111,7 @@ window["test"]["gameOptimizations"] = function(){
 
 		var expected = [[0,0],[1,0],[1,1],[2,1],[2,2]];
 		for(var i = 0; i < expected.length; i++){
-			same([path.nodes[i].getX(), path.nodes[i].getY()], expected[i], "new path: node " + i + " is as expected");
+			deepEqual([path.nodes[i].getX(), path.nodes[i].getY()], expected[i], "new path: node " + i + " is as expected");
 		}
 	});
 	
@@ -121,7 +121,7 @@ window["test"]["gameOptimizations"] = function(){
 		
 		var expected = [[0,0],[1,0],[1,1],[1,2],[2,2]];
 		for(var i = 0; i < expected.length; i++){
-			same([path.nodes[i].getX(), path.nodes[i].getY()], expected[i], "initial: path node " + i + " is as expected");
+			deepEqual([path.nodes[i].getX(), path.nodes[i].getY()], expected[i], "initial: path node " + i + " is as expected");
 		}
 		
 		// Now we remove a point and signal to our graph that any paths containing that point
@@ -129,7 +129,7 @@ window["test"]["gameOptimizations"] = function(){
 		graph.removeNode(1, 2);
 		graph.invalidate(0, 1, 2, 2);
 
-		equals(path.nodes.length, 1, "incomplete path is shorter");
+		equal(path.nodes.length, 1, "incomplete path is shorter");
 				
 		// After we invalidate the point, we can regenerate the rest of the graph		
 		ok(!path.found, "deleted only available path; can't find new path");
@@ -142,7 +142,7 @@ window["test"]["gameOptimizations"] = function(){
 
 		var expected = [[0,0],[1,0],[1,1],[2,1],[2,2]];
 		for(var i = 0; i < expected.length; i++){
-			same([path.nodes[i].getX(), path.nodes[i].getY()], expected[i], "new path: node " + i + " is as expected");
+			deepEqual([path.nodes[i].getX(), path.nodes[i].getY()], expected[i], "new path: node " + i + " is as expected");
 		}
 	});
 	
@@ -152,7 +152,7 @@ window["test"]["gameOptimizations"] = function(){
 		
 		var expected = [[0,0],[1,0],[1,1],[1,2],[2,2]];
 		for(var i = 0; i < expected.length; i++){
-			same([path.nodes[i].getX(), path.nodes[i].getY()], expected[i], "initial: path node " + i + " is as expected");
+			deepEqual([path.nodes[i].getX(), path.nodes[i].getY()], expected[i], "initial: path node " + i + " is as expected");
 		}
 		
 		// Now we remove a point and signal to our graph that any paths containing that point
@@ -165,7 +165,7 @@ window["test"]["gameOptimizations"] = function(){
 		
 		ok(!path.found, "deleted only available path; can't find new path");
 		
-		equals(path.nodes.length, 1, "busted path is indeed shorter");
+		equal(path.nodes.length, 1, "busted path is indeed shorter");
 		
 		// Now let's add another node making it possible to find the goal
 		graph.addNode(new MyNode([2, 1]));
@@ -175,7 +175,7 @@ window["test"]["gameOptimizations"] = function(){
 
 		var expected = [[0,0],[1,0],[1,1],[2,1],[2,2]];
 		for(var i = 0; i < expected.length; i++){
-			same([path.nodes[i].getX(), path.nodes[i].getY()], expected[i], "new path: node " + i + " is as expected");
+			deepEqual([path.nodes[i].getX(), path.nodes[i].getY()], expected[i], "new path: node " + i + " is as expected");
 		}
 	});
 	
@@ -188,7 +188,7 @@ window["test"]["gameOptimizations"] = function(){
 		var path = graph.findGoal({start: graph.getNode(3, 0), goal: graph.getNode(0, 5), algorithm: "lpa*", baked: false, diagonals: true});
 		var expected = [[3,0],[2,0],[1,1],[1,2],[1,3],[1,4],[0,5]];
 		for(var i = 0; i < expected.length; i++){
-			same([path.nodes[i].getX(), path.nodes[i].getY()], expected[i], "initial: path node " + i + " is as expected");
+			deepEqual([path.nodes[i].getX(), path.nodes[i].getY()], expected[i], "initial: path node " + i + " is as expected");
 		}
 
 		// Now we remove a point and signal to our graph that any paths containing that point
@@ -204,9 +204,9 @@ window["test"]["gameOptimizations"] = function(){
 		/*		
 		var expected = [[0,0],[1,0],[1,1]];
 		for(var i = 0; i < expected.length; i++){
-			same([path.nodes[i].getX(), path.nodes[i].getY()], expected[i], "busted: path node " + i + " is as expected");
+			deepEqual([path.nodes[i].getX(), path.nodes[i].getY()], expected[i], "busted: path node " + i + " is as expected");
 		}
-		equals(path.nodes.length, 3, "busted path is indeed shorter");
+		equal(path.nodes.length, 3, "busted path is indeed shorter");
 		
 		// Now let's add another node making it possible to find the goal
 		graph.addNode(new MyNode([2, 1]));
@@ -216,7 +216,7 @@ window["test"]["gameOptimizations"] = function(){
 
 		var expected = [[0,0],[1,0],[1,1],[2,1],[2,2]];
 		for(var i = 0; i < expected.length; i++){
-			same([path.nodes[i].getX(), path.nodes[i].getY()], expected[i], "new path: node " + i + " is as expected");
+			deepEqual([path.nodes[i].getX(), path.nodes[i].getY()], expected[i], "new path: node " + i + " is as expected");
 		}
 		*/
 	});

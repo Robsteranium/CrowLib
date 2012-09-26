@@ -100,8 +100,8 @@ window["test"]["mainTest"] = function(){
 		function nodeTest(x, y){
 			var n = graph.getNode(x, y);
 			ok(n, "Node at " + x + "," + y + " is ok");
-			equals(n.getX(), x, "Node's x value is as expected");
-			equals(n.getY(), y, "Node's y value is as expected");
+			equal(n.getX(), x, "Node's x value is as expected");
+			equal(n.getY(), y, "Node's y value is as expected");
 		}
 		
 		nodeTest(0, 0);
@@ -115,17 +115,17 @@ window["test"]["mainTest"] = function(){
 		var firstNode = graph.getNode(function(){
 			return true;
 		});
-		same(firstNode, new MyNode([0, 0]), "Got first element correctly");
+		deepEqual(firstNode, new MyNode([0, 0]), "Got first element correctly");
 		var lastNode = graph.getNode(function(){
 			return this.getX() == 1 && this.getY() == 1;
 		});
-		same(lastNode, new MyNode([1, 1]), "Got last element correctly");
+		deepEqual(lastNode, new MyNode([1, 1]), "Got last element correctly");
 	});
 	
 	test("getNodes with no args", function(){
 		var graph = smallGraph();
 		var nodes = graph.getNodes();
-		equals(nodes.length, 3, "Three elements returned");
+		equal(nodes.length, 3, "Three elements returned");
 		// TODO more?
 	});
 	
@@ -134,9 +134,9 @@ window["test"]["mainTest"] = function(){
 		var nodes = graph.getNodes(function(){
 		  return this.getX() == this.getY();
 		});
-		equals(nodes.length, 2, "Two elements");
-		same(nodes[0], new MyNode([0, 0]), "First element is first");
-		same(nodes[1], new MyNode([1, 1]), "Third element is second");
+		equal(nodes.length, 2, "Two elements");
+		deepEqual(nodes[0], new MyNode([0, 0]), "First element is first");
+		deepEqual(nodes[1], new MyNode([1, 1]), "Third element is second");
 	});
 			var graph = largeGraph();
 		var path = graph.findGoal({algorithm: "dfs"});
@@ -147,9 +147,9 @@ window["test"]["mainTest"] = function(){
 				return this.getX() == this.getY();
 			}
 		});
-		equals(nodes.length, 2, "Two elements");
-		same(nodes[0], new MyNode([0, 0]), "First element is upper left node");
-		same(nodes[1], new MyNode([1, 1]), "Second element is lower right node");
+		equal(nodes.length, 2, "Two elements");
+		deepEqual(nodes[0], new MyNode([0, 0]), "First element is upper left node");
+		deepEqual(nodes[1], new MyNode([1, 1]), "Second element is lower right node");
 	});
 	
 	test("getNodes with options hash, bfs, and lower right starting point", function(){
@@ -158,10 +158,10 @@ window["test"]["mainTest"] = function(){
 			start: graph.getNode(1, 1),
 			algorithm: 'bfs_basic'
 		});
-		equals(nodes.length, 3, "Three elements");
-		same(nodes[0], new MyNode([1, 1]), "First element is lower right node");
-		same(nodes[1], new MyNode([0, 1]), "Second element is lower left node");
-		same(nodes[2], new MyNode([0, 0]), "Third element is upper left node");
+		equal(nodes.length, 3, "Three elements");
+		deepEqual(nodes[0], new MyNode([1, 1]), "First element is lower right node");
+		deepEqual(nodes[1], new MyNode([0, 1]), "Second element is lower left node");
+		deepEqual(nodes[2], new MyNode([0, 0]), "Third element is upper left node");
 	});
 	
 	test("findGoal with only a goal", function(){
@@ -170,11 +170,11 @@ window["test"]["mainTest"] = function(){
 		
 		var path = graph.findGoal({goal: graph.getNode(1, 1), algorithm: "dijkstra"});
 		
-		equals(path.nodes.length, 3, "Path contains expected number of nodes");
+		equal(path.nodes.length, 3, "Path contains expected number of nodes");
 		
-		same(path.start, new MyNode([0, 0]), "Path has expected start node");
-		same(path.end, new MyNode([1, 1]), "Path has expected end node");
-		equals(path.length, 2, "Path is of expected length");
+		deepEqual(path.start, new MyNode([0, 0]), "Path has expected start node");
+		deepEqual(path.end, new MyNode([1, 1]), "Path has expected end node");
+		equal(path.length, 2, "Path is of expected length");
 		ok(path.found, "Path indicates end was found");
 	});
 	
@@ -185,10 +185,10 @@ window["test"]["mainTest"] = function(){
 		
 		var path = graph.findGoal({start: graph.getNode(0, 0), goal: graph.getNode(1, 5), algorithm: "dijkstra"});
 
-		equals(path.nodes.length, 13, "Path contains expected number of nodes");
-		same(path.start, new MyNode([0, 0]), "Path has expected start node");
-		same(path.end, new MyNode([1, 5]), "Path has expected end node");
-		equals(path.length, 12, "Path is of expected length");
+		equal(path.nodes.length, 13, "Path contains expected number of nodes");
+		deepEqual(path.start, new MyNode([0, 0]), "Path has expected start node");
+		deepEqual(path.end, new MyNode([1, 5]), "Path has expected end node");
+		equal(path.length, 12, "Path is of expected length");
 		ok(containsNode(path, 4, 4), "Path contains expected midpoint");
 		ok(path.found, "Path indicated end was found");
 
@@ -197,13 +197,13 @@ window["test"]["mainTest"] = function(){
 		graph.removeNode(4, 4);
 		
 		var newNodeCount = graph.getNodes().length;
-		equals(nodeCount - newNodeCount, 1, "Graph has correct number of nodes after removing one (on previous path)");
+		equal(nodeCount - newNodeCount, 1, "Graph has correct number of nodes after removing one (on previous path)");
 		
 		path = graph.findGoal({start: graph.getNode(0, 0), goal: graph.getNode(1, 5)});
-		equals(path.nodes.length, 17, "Path contains expected number of nodes");
-		same(path.start, new MyNode([0, 0]), "Path has expected start node");
-		same(path.end, new MyNode([1, 5]), "Path has expected end node");
-		equals(path.length, 16, "Path is of expected length");
+		equal(path.nodes.length, 17, "Path contains expected number of nodes");
+		deepEqual(path.start, new MyNode([0, 0]), "Path has expected start node");
+		deepEqual(path.end, new MyNode([1, 5]), "Path has expected end node");
+		equal(path.length, 16, "Path is of expected length");
 		ok(!containsNode(path, 4, 4), "Path doesn't contain node that was previously removed");
 		ok(containsNode(path, 6, 4), "Path contains new node instead");
 		ok(path.found, "Path indicated end was found");
@@ -212,10 +212,10 @@ window["test"]["mainTest"] = function(){
 		graph.addNode(new MyNode([4, 4]));
 		ok(graph.getNode(4, 4), "Graph now contains 4,4");
 		var newNewNodeCount = graph.getNodes().length;
-		equals(newNewNodeCount - newNodeCount, 1, "Graph has correct number of nodes after readding deleted node");
+		equal(newNewNodeCount - newNodeCount, 1, "Graph has correct number of nodes after readding deleted node");
 		//path = recalculate();
 		//ok(containsNode(path, 4, 4), "Path contains original expected midpoint");
-		//equals(path.length, 12, "Path is of expected length");
+		//equal(path.length, 12, "Path is of expected length");
 	});
 	
 	module("ConnectedNode");
@@ -243,12 +243,12 @@ window["test"]["mainTest"] = function(){
 			}
 			time = new Date() - time;
 			ok(path.found, "Path was found (" + algo + ") in " + (Math.round(time*100.0)/(100.0*n)) + "ms");
-			equals(path.length, 2690, "Path was expected length (" + algo + ")");
-			equals(path.nodes[0].id, Seattle.id, "First stop was as expected (" + algo + ")");
-			equals(path.nodes[1].id, SaltLakeCity.id, "Second stop was as expected (" + algo + ")");
-			equals(path.nodes[2].id, Houston.id, "Third stop was as expected (" + algo + ")");
-			equals(path.nodes[3].id, Tampa.id, "Fourth stop was as expected (" + algo + ")");
-			equals(path.nodes.length, 4, "Correct number of stops (" + algo + ")");
+			equal(path.length, 2690, "Path was expected length (" + algo + ")");
+			equal(path.nodes[0].id, Seattle.id, "First stop was as expected (" + algo + ")");
+			equal(path.nodes[1].id, SaltLakeCity.id, "Second stop was as expected (" + algo + ")");
+			equal(path.nodes[2].id, Houston.id, "Third stop was as expected (" + algo + ")");
+			equal(path.nodes[3].id, Tampa.id, "Fourth stop was as expected (" + algo + ")");
+			equal(path.nodes.length, 4, "Correct number of stops (" + algo + ")");
 		}
 	});
 	
@@ -269,10 +269,10 @@ window["test"]["mainTest"] = function(){
 	test("basic test", function(){
 		var graph = smallGraph();
 		var path = graph.findGoal({goal: graph.getNode(1, 1), algorithm: "dijkstra"});
-		equals(path.nodes.length, 3, "Path contains expected number of nodes");
-		same(path.start, new MyNode([0, 0]), "Path has expected start node");
-		same(path.end, new MyNode([1, 1]), "Path has expected end node");
-		equals(path.length, 2, "Path is of expected length");
+		equal(path.nodes.length, 3, "Path contains expected number of nodes");
+		deepEqual(path.start, new MyNode([0, 0]), "Path has expected start node");
+		deepEqual(path.end, new MyNode([1, 1]), "Path has expected end node");
+		equal(path.length, 2, "Path is of expected length");
 		ok(path.found, "Path indicates end was found");	
 	});
 
@@ -280,10 +280,10 @@ window["test"]["mainTest"] = function(){
 	test("basic test", function(){
 		var graph = smallGraph();
 		var path = graph.findGoal({goal: graph.getNode(1, 1), algorithm: "a*"});
-		equals(path.nodes.length, 3, "Path contains expected number of nodes");
-		same(path.start, new MyNode([0, 0]), "Path has expected start node");
-		same(path.end, new MyNode([1, 1]), "Path has expected end node");
-		equals(path.length, 2, "Path is of expected length");
+		equal(path.nodes.length, 3, "Path contains expected number of nodes");
+		deepEqual(path.start, new MyNode([0, 0]), "Path has expected start node");
+		deepEqual(path.end, new MyNode([1, 1]), "Path has expected end node");
+		equal(path.length, 2, "Path is of expected length");
 		ok(path.found, "Path indicates end was found");
 	});
 	/*
@@ -291,10 +291,10 @@ window["test"]["mainTest"] = function(){
 		var graph = smallGraph();
 		var distanceEstimator = GraphUtil.distance.pythagoras;
 		var path = graph.findGoal({goal: graph.getNode(1, 1), algorithm: "a*"});
-		equals(path.nodes.length, 3, "Path contains expected number of nodes");
-		same(path.start, new MyNode([0, 0]), "Path has expected start node");
-		same(path.end, new MyNode([1, 1]), "Path has expected end node");
-		equals(path.length, 2, "Path is of expected length");
+		equal(path.nodes.length, 3, "Path contains expected number of nodes");
+		deepEqual(path.start, new MyNode([0, 0]), "Path has expected start node");
+		deepEqual(path.end, new MyNode([1, 1]), "Path has expected end node");
+		equal(path.length, 2, "Path is of expected length");
 		ok(path.found, "Path indicates end was found");
 	});
 	*/
@@ -308,19 +308,19 @@ window["test"]["mainTest"] = function(){
 	test("basic test", function(){
 		var graph = smallGraph();
 		var path = graph.findGoal({goal: graph.getNode(1, 1), algorithm: "lpa*"});
-		equals(path.nodes.length, 3, "Path contains expected number of nodes");
-		same(path.start, new MyNode([0, 0]), "Path has expected start node");
-		same(path.end, new MyNode([1, 1]), "Path has expected end node");
-		equals(path.length, 2, "Path is of expected length");
+		equal(path.nodes.length, 3, "Path contains expected number of nodes");
+		deepEqual(path.start, new MyNode([0, 0]), "Path has expected start node");
+		deepEqual(path.end, new MyNode([1, 1]), "Path has expected end node");
+		equal(path.length, 2, "Path is of expected length");
 		ok(path.found, "Path indicates end was found");
 	});
 	test("bigger test", function(){
 		var graph = largeGraph();
 		var path = graph.findGoal({goal: graph.getNode(7, 5), algorithm: "lpa*"});
-		equals(path.nodes.length, 13, "Path contains expected number of nodes");
-		same(path.start, new MyNode([0, 0]), "Path has expected start node");
-		same(path.end, new MyNode([7, 5]), "Path has expected end node");
-		equals(path.length, 12, "Path is of expected length");
+		equal(path.nodes.length, 13, "Path contains expected number of nodes");
+		deepEqual(path.start, new MyNode([0, 0]), "Path has expected start node");
+		deepEqual(path.end, new MyNode([7, 5]), "Path has expected end node");
+		equal(path.length, 12, "Path is of expected length");
 		ok(path.found, "Path indicates end was found");
 	});
 	
@@ -499,9 +499,9 @@ window["test"]["mainTest"] = function(){
 		var path = this.graph1.findGoal({start: start, goal: goal, algorithm: "fra*", baked: false});
 		var expected = [[0,1],[1,1],[2,1],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3]];
 		for(var i = 0; i < path.nodes.length; i++){
-			same(path.nodes[i], new MyNode([expected[i][0], expected[i][1]]), "Node " + i + " in original path");
+			deepEqual(path.nodes[i], new MyNode([expected[i][0], expected[i][1]]), "Node " + i + " in original path");
 		}
-		same(path.length, 8, "Original path of expected length");
+		deepEqual(path.length, 8, "Original path of expected length");
 		
 		start = this.graph1.getNode(1, 1);
 		goal = this.graph1.getNode(4, 4)
@@ -510,43 +510,43 @@ window["test"]["mainTest"] = function(){
 		path.continueCalculating();
 		expected = [[1,1],[2,1],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4]];
 		for(var i = 0; i < path.nodes.length; i++){
-			same(path.nodes[i], new MyNode([expected[i][0], expected[i][1]]), "Node " + i + " in revised path");
+			deepEqual(path.nodes[i], new MyNode([expected[i][0], expected[i][1]]), "Node " + i + " in revised path");
 		}
-		same(path.length, 8, "New path of expected length");
+		deepEqual(path.length, 8, "New path of expected length");
 		
 		start = path.nodes[1];
 		path.advanceTo(start);
 		path.continueCalculating();
 		expected = [[2,1],[2,0],[3,0],[4,0],[4,1],[4,2],[4,3],[4,4]];
 		for(var i = 0; i < path.nodes.length; i++){
-			same(path.nodes[i], new MyNode([expected[i][0], expected[i][1]]), "Node " + i + " in revised path");
+			deepEqual(path.nodes[i], new MyNode([expected[i][0], expected[i][1]]), "Node " + i + " in revised path");
 		}
-		same(path.length, 7, "New path #2 of expected length");
+		deepEqual(path.length, 7, "New path #2 of expected length");
 		
 		start = path.nodes[path.nodes.length-2];
 		path.advanceTo(start);
 		path.continueCalculating();
 		expected = [[4,3],[4,4]];
 		for(var i = 0; i < path.nodes.length; i++){
-			same(path.nodes[i], new MyNode([expected[i][0], expected[i][1]]), "Node " + i + " in revised path");
+			deepEqual(path.nodes[i], new MyNode([expected[i][0], expected[i][1]]), "Node " + i + " in revised path");
 		}
-		same(path.length, 1, "Almost-there path of expected length");
+		deepEqual(path.length, 1, "Almost-there path of expected length");
 		
 		start = path.nodes[1];
 		path.advanceTo(start);
 		path.continueCalculating();
 		expected = [[4,4]];
 		for(var i = 0; i < path.nodes.length; i++){
-			same(path.nodes[i], new MyNode([expected[i][0], expected[i][1]]), "Node " + i + " in revised path");
+			deepEqual(path.nodes[i], new MyNode([expected[i][0], expected[i][1]]), "Node " + i + " in revised path");
 		}
-		same(path.length, 0, "Completed path of expected length");
+		deepEqual(path.length, 0, "Completed path of expected length");
 	});
 	test("trivial: found is true when start == goal", function(){
 		var start = this.graph1.getNode(4, 4);
 		var goal = this.graph1.getNode(4, 3);
 		var path = this.graph1.findGoal({start: start, goal: goal, algorithm: "fra*"});
 		ok(path.found, "Path is found");
-		same(path.length, 1, "Path of length 1");	
+		deepEqual(path.length, 1, "Path of length 1");	
 	});
 	
 	module("internal api : memory leaks");
